@@ -11,7 +11,6 @@ def RSAAlg(RSAlistE, RSAlistD):
         filedata = bytes(f.read(), encoding='utf-8')
         f.close()
         
-        start = time.time()
 
         private_key = rsa.generate_private_key(
 
@@ -21,6 +20,8 @@ def RSAAlg(RSAlistE, RSAlistD):
         )
 
         public_key = private_key.public_key()
+        
+        start = time.time()
 
         ciphertext = public_key.encrypt(filedata, OAEP(
             mgf= MGF1(algorithm = hashes.SHA256()),
@@ -45,4 +46,5 @@ def RSAAlg(RSAlistE, RSAlistD):
         RSAlistD[i-1] += end-start
         print(str(2**i) + ' bytes RSA decrypt takes ' + str(end-start) + ' sec')
 
+        print('\n')
     return RSAlistE, RSAlistD
